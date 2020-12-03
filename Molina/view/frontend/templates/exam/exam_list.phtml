@@ -6,16 +6,12 @@
     $contador = 0;
     $nota = 0;
     $numMejores = 3;
+    $notaMasAlta = 0;
     ?>
     <?php foreach ($block->getExams() as $exam): ?>
-        <hr>
         <li>
         <? if($numMejores > 0):?>
-            <hr>
-            <hr>
             <p class="mejores"><?=$exam->getFirstName()?></p>
-            <hr>
-            <hr>
             <?$numMejores--;
         else:?>
             <p><?=$exam->getFirstName()?></p>
@@ -30,6 +26,9 @@
                 <? endif; ?>
 
                 <p><?=$exam->getMark()?></p>
+                <? if($exam->getMark() > $notaMasAlta):
+                    $notaMasAlta = $exam->getMark();
+                    endif; ?>
             </div>
             <?
             $contador++;
@@ -42,11 +41,12 @@
     <p><?=__('Total number of students: %1',$contador)?></p>
     <p><?=__('Average grade : %1',($nota/$contador))?></p>
     <? $block->writeLog($contador,($nota/$contador))?>
-    <input type="button" id="buttonMarks"   value="Click me">
+    <input type="button" id="buttonMarks"   value="Notas">
+    <input type="button" id="buttonNote"   value="Nota Alta">
 </ul>
     <script type="text/x-magento-init">{
             ".listado":{
-                "Hiberus_Molina/js/script":{}
+                "Hiberus_Molina/js/script":{"notaAlta":"<?php echo $notaMasAlta; ?>"}
             }
         }
     </script>
