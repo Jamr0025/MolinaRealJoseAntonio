@@ -1,0 +1,26 @@
+@margin-left-primary:20px;
+& when (@media-common = true) {
+    body{
+        h2{
+            color:#7d2717;
+        }
+        .listado{
+
+            li:nth-of-type(2n){
+                padding-left:@margin-left-primary;
+            }
+            .mejores{
+                background-color: #990055;
+            }
+        }
+    }
+}
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__m) {
+    body{
+        h2{
+            color:#000099;
+        }
+
+    }
+}

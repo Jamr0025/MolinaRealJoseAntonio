@@ -1,0 +1,53 @@
+<?php /** @var \Hiberus\Molina\Block\Exam\ExamList $block */ ?>
+
+<h2 class="title">Listado de examenes </h2>
+<ul class="listado">
+    <?php
+    $contador = 0;
+    $nota = 0;
+    $numMejores = 3;
+    ?>
+    <?php foreach ($block->getExams() as $exam): ?>
+        <hr>
+        <li>
+        <? if($numMejores > 0):?>
+            <hr>
+            <hr>
+            <p class="mejores"><?=$exam->getFirstName()?></p>
+            <hr>
+            <hr>
+            <?$numMejores--;
+        else:?>
+            <p><?=$exam->getFirstName()?></p>
+         <?endif; ?>
+
+            <p><?=$exam->getLastName()?></p>
+            <div class="notas"
+                 <? if($exam->getMark() >=5):?>
+                    style="background:green">
+                <? else: ?>
+                    style="background:red">
+                <? endif; ?>
+
+                <p><?=$exam->getMark()?></p>
+            </div>
+            <?
+            $contador++;
+            $nota+=$exam->getMark();
+            ?>
+        </li>
+    <?php endforeach; ?>
+
+    <hr>
+    <p><?=__('Total number of students: %1',$contador)?></p>
+    <p><?=__('Average grade : %1',($nota/$contador))?></p>
+    <? $block->writeLog($contador,($nota/$contador))?>
+    <input type="button" id="buttonMarks"   value="Click me">
+</ul>
+    <script type="text/x-magento-init">{
+            ".listado":{
+                "Hiberus_Molina/js/script":{}
+            }
+        }
+    </script>
+
